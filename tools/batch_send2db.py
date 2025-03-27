@@ -19,16 +19,14 @@ PASSWORD = "usrpwd"
 
 # Example JSON record
 json_record = {
-    "sn": "51202410091259960000013617609",
-    "origin": "zollner",
-    "ItemNr": "95666",
-    "WorkPlan": "A00864",
+    "sn": "1234567890",
+    "origin": "supplier",
+    "ItemNr": "13245",
+    "WorkPlan": "A001",
     "WorkPlanIndex": 1,
-    "bom_name": "95666",
+    "bom_name": "12345",
     "bom_index": 0,
     "serie": "none",
-    "ffmaterial": "2053611-02",
-    "ffauftrag": "13617609",
     "timestamp": "2024-10-15T16:09:17",
     "verification": True,
     "comment": "",
