@@ -91,8 +91,7 @@ class App:
 
     def browse_folder(self):
         self.process_button.config(state=tk.DISABLED)
-        folder = filedialog.askdirectory()
-        if folder:
+        if folder := filedialog.askdirectory():
             self.folder_path.set(folder)
             self.process_button.config(state=tk.NORMAL)
 
@@ -119,25 +118,28 @@ class App:
         # Update the start time label
         self.time_start_label.config(text=f"Process Start Time: {self.start_time.strftime('%H:%M:%S')}")
 
-        folder = self.folder_path.get()
-        if folder:
-            self.abort_button.config(state=tk.NORMAL)
-            self.process_button.config(state=tk.DISABLED)
-            self.log(f"Processing started at {self.start_time}")
+        if folder := self.folder_path.get():
+            self._extracted_from_start_processing_20(folder)
 
-            logging.basicConfig(
-                filename=f"xml2json_{self.start_time.strftime('%Y_%m_%d_%H_%M_%S')}.log",
-                level=logging.DEBUG,
-                format="%(asctime)s - %(levelname)s - %(message)s",
-                encoding="utf-8",
-                force=True,
-            )
+    # TODO Rename this here and in `start_processing`
+    def _extracted_from_start_processing_20(self, folder):
+        self.abort_button.config(state=tk.NORMAL)
+        self.process_button.config(state=tk.DISABLED)
+        self.log(f"Processing started at {self.start_time}")
 
-            # Start periodic progress updates
-            self.root_window.after(self.progress_update_interval, self.update_progress)
+        logging.basicConfig(
+            filename=f"xml2json_{self.start_time.strftime('%Y_%m_%d_%H_%M_%S')}.log",
+            level=logging.DEBUG,
+            format="%(asctime)s - %(levelname)s - %(message)s",
+            encoding="utf-8",
+            force=True,
+        )
 
-            # Start processing in a separate thread
-            threading.Thread(target=self.process_folder, args=(folder,), daemon=True).start()
+        # Start periodic progress updates
+        self.root_window.after(self.progress_update_interval, self.update_progress)
+
+        # Start processing in a separate thread
+        threading.Thread(target=self.process_folder, args=(folder,), daemon=True).start()
 
     def process_folder(self, folder):
         try:

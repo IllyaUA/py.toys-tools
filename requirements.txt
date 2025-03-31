@@ -1,0 +1,8 @@
+psutil~=7.0.0
+PyAutoGUI~=0.9.54
+pynput~=1.8.1
+jsonlines~=4.0.0
+requests~=2.32.3
+sqlparse~=0.5.3
+pywin32
+win32gui
