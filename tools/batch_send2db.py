@@ -6,12 +6,11 @@ from datetime import datetime
 # from typing import Any, Tuple, cast
 from tkinter import filedialog, messagebox, ttk, scrolledtext
 
+import dblib
 import jsonlines
 import requests
 import sqlparse
 from requests.auth import HTTPBasicAuth
-
-import dblib
 
 # Dummy credentials
 USERNAME = "usrname"

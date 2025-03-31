@@ -1,19 +1,20 @@
-import os
-import time
-import random
 import ctypes
+import os
+import random
 import subprocess
 import threading
+import time
 import tkinter as tk
-import win32gui
-import win32con
-import win32process
-import psutil
-import pythoncom
-import pyautogui
-import win32com.client
-from pynput import keyboard
 from tkinter import scrolledtext
+
+import psutil
+import pyautogui
+import pythoncom
+import win32com.client
+import win32con
+import win32gui
+import win32process
+from pynput import keyboard
 
 # Constants to prevent sleep/lock
 ES_CONTINUOUS = 0x80000000
@@ -62,20 +63,22 @@ class AutomationController:
             self.log_field.yview(tk.END)
         self.root.after(100, self.update_log)
 
-    def prevent_sleep(self):
+    @staticmethod
+    def prevent_sleep():
         ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_DISPLAY_REQUIRED)
 
-    def allow_sleep(self):
+    @staticmethod
+    def allow_sleep():
         ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS)
 
     def load_snippets(self):
         try:
-            with open("dblib.py", "r") as f:
+            with open("simer2.py", "r") as f:
                 lines = [line.strip() for line in f if line.strip()]
-            return lines if lines else ["Default snippet: dblib.py is empty."]
+            return lines or ["Default snippet: simer2.py is empty."]
         except Exception as e:
             self.log_message(f"Error loading snippets: {e}")
-            return ["Default snippet: dblib.py not found."]
+            return ["Default snippet: simer2.py not found."]
 
     def open_script_in_pycharm(self):
         try:
@@ -86,7 +89,8 @@ class AutomationController:
         except Exception as e:
             self.log_message(f"Error opening script: {e}")
 
-    def find_word_window(self):
+    @staticmethod
+    def find_word_window():
         hwnd_list = []
 
         def enum_window_callback(hwnd, result):
@@ -148,7 +152,7 @@ class AutomationController:
         try:
             self.prevent_sleep()
             self.user_detection_enabled = True
-            doc = self.get_or_create_word_doc()
+            self.get_or_create_word_doc()
             time.sleep(2)
             self.log_message("Automation started.")
 

@@ -1,14 +1,15 @@
 import logging
 import os
-from collections import defaultdict
-import jsonlines
 import threading
 import tkinter as tk
-from pathlib import Path
-from datetime import datetime
-from tkinter import filedialog, ttk, scrolledtext
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
+from pathlib import Path
+from tkinter import filedialog, ttk
+
 import dblib
+import jsonlines
 
 
 class App:

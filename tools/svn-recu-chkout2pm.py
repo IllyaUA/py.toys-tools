@@ -1,10 +1,11 @@
-import os
-import subprocess
-import xml.etree.ElementTree as ET
-import tkinter as tk
-from tkinter import filedialog, scrolledtext
 import configparser
+import os
 import stat
+import subprocess
+import tkinter as tk
+import xml.etree.ElementTree as ET
+from tkinter import filedialog, scrolledtext
+
 import psutil
 
 MONITORING_DATA_PATH = os.path.expanduser(r"~\AppData\Roaming\TortoiseSVN\MonitoringData.ini")
@@ -64,7 +65,11 @@ def add_to_tortoise_project_monitor(local_checkout_path, repo_root, repo_url):
 
     # Find the next available item number
     existing_items = [section for section in config.sections() if section.startswith("item_")]
-    next_item_number = max([int(item.split("_")[1]) for item in existing_items], default=0) + 1
+    next_item_number = (
+        max((int(item.split("_")[1]) for item in existing_items), default=0)
+        + 1
+    )
+    # next_item_number = max([int(item.split("_")[1]) for item in existing_items], default=0) + 1
     new_section = f"item_{next_item_number:03}"  # Ensures item naming is consistent
 
     # Check if the project is already in MonitoringData.ini
@@ -74,7 +79,7 @@ def add_to_tortoise_project_monitor(local_checkout_path, repo_root, repo_url):
             return
 
     # Add new section
-    project_name = "_" + os.path.basename(local_checkout_path)
+    project_name = f"_{os.path.basename(local_checkout_path)}"
     config[new_section] = {
         "root": repo_root,
         "wcPathOrUrl": local_checkout_path,
