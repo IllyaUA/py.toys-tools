@@ -110,8 +110,8 @@ class PDFMergerApp(TkinterDnD.Tk):
             messagebox.showwarning("Insufficient Files", "Please add at least two PDF files to merge.")
             return
 
-        output_file = filedialog.asksaveasfilename(defaultextension=".pdf",
-                                                   filetypes=[("PDF Files", "*.pdf")])
+        output_file = os.path.normpath(filedialog.asksaveasfilename(defaultextension=".pdf",
+                                                   filetypes=[("PDF Files", "*.pdf")]))
         if not output_file:
             return
 
